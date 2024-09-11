@@ -1,0 +1,140 @@
+<section class="bg-gray-50 dark:bg-gray-900 rounded-sm h-full p-4">
+    <div class="mx-auto max-w-screen-xl">
+      <div
+        class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden"
+      >
+        <div class="border-b dark:border-gray-700 mx-4">
+          <div class="p-4">
+            <label for="simple-search" class="sr-only">Search</label>
+            <div class="relative w-full">
+              <div
+                class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <input
+                (keyup)="applyFilter($event)"
+                type="text"
+                id="simple-search"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                placeholder="Search"
+                required
+              />
+            </div>
+  
+            <div
+              class="flex flex-col-reverse md:flex-row items-center justify-between md:space-x-4 py-3"
+            >
+              <div class="flex items-center justify-between space-x-4 pt-3">
+                <div class="flex-1 flex items-center space-x-3">
+                  <h5 class="dark:text-white font-semibold text-black">Todo</h5>
+                </div>
+              </div>
+              <div
+                class="w-full md:w-auto flex flex-col md:flex-row mb-3 md:mb-0 items-stretch md:items-center justify-between md:space-x-3 flex-shrink-0"
+              >
+                <button
+                  (click)="addTodo()"
+                  type="button"
+                  class="flex items-center justify-center text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-primary-800 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+                >
+                  <i class="bi bi-plus me-2"></i>
+                  Add todo
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="overflow-x-auto">
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            class="w-full mat-elevation-z8 text-sm text-start text-gray-500 dark:text-gray-400"
+          >
+            <ng-container matColumnDef="title">
+              <th
+                *matHeaderCellDef
+                class="px-4 border-b-2 text-sm uppercase max-w-xs text-start"
+              >
+                Title
+              </th>
+              <td
+                *matCellDef="let row"
+                class="px-4 max-w-xs whitespace-nowrap truncate"
+              >
+                {{ row.title }}
+              </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="description">
+              <th
+                *matHeaderCellDef
+                class="px-4 border-b-2 text-sm uppercase max-w-lg text-start"
+              >
+                Views
+              </th>
+              <td
+                *matCellDef="let row"
+                class="px-4 max-w-lg whitespace-nowrap truncate"
+              >
+                {{ row.views }}
+              </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="actions">
+              <th
+                *matHeaderCellDef
+                class="px-4 border-b-2 text-sm uppercase text-start"
+              >
+                action
+              </th>
+              <td
+                *matCellDef="let row"
+                class="px-4 text-center mt-2 flex items-center gap-2"
+              >
+                <button (click)="delete(row)">delete</button>
+              </td>
+            </ng-container>
+  
+            <tr
+              mat-header-row
+              class="text-xs text-gray-700 py- dark:bg-gray-700 dark:text-gray-400"
+              *matHeaderRowDef="displayedColumns"
+            ></tr>
+  
+            <tr
+              class="border-b-gray-100 border-b-2"
+              mat-row
+              *matRowDef="let row; columns: displayedColumns"
+            ></tr>
+  
+            <tr class="dark:bg-gray-700 dark:text-gray-400" *matNoDataRow>
+              <td class="dark:bg-gray-700 dark:text-gray-400 p-3" colspan="5">
+                there is no data to show! 😔
+              </td>
+            </tr>
+          </table>
+        </div>
+        <mat-paginator
+          [pageSize]="10"
+          class="dark:bg-gray-700 dark:text-gray-400"
+          showFirstLastButtons
+          hidePageSize
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  </section>
