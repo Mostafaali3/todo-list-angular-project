@@ -1,3 +1,5 @@
 export interface Todo {
-    id?: number
+    id?: number;
+    title: String;
+    views: number;
 }
